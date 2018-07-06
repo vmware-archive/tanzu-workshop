@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)https://pks-workshop-v1.pal.pivotal.io/unit/pivotal-ops-manager/demo.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="course version" content="1.0.6">
+<meta name="generator" content="io.pivotal.pal.shipkin:shipkin-plugin:5.0.0, https://github.com/platform-acceleration-lab/shipkin">
+<meta name="generated on" content="2018-03-13T16:17:21.299Z">
+<meta name="theme-color" content="#216eb9">
+
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Pivotal Container Service Workshop</title>
+
+<link rel="icon" href="../../img/favicon.ico">
+
+<link rel="stylesheet" href="../../css/reset.css">
+<link rel="stylesheet" href="../../css/theme.css">
+<link rel="stylesheet" href="../../css/highlight.js.min.css">
+<link rel="stylesheet" href="../../css/github.css">
+
+<style>
+    @import url(''https://fonts.googleapis.com/css?family=Raleway:500,500i,700,700i'');
+
+    #header {
+        border-color: #216eb9;
+        background-color: #216eb9;
+    }
+
+    footer {
+        background-color: #216eb9;
+    }
+
+    .label.label-primary {
+        background-color: #216eb9;
+    }
+
+    a {
+        color: #216eb9;
+    }
+
+    .label.label-primary:hover, .label.label-primary:focus {
+        background-color: #307dc8;
+    }
+
+    a:hover, a:focus {
+        color: #307dc8;
+    }
+
+    .slide {
+        color: #216eb9;
+    }
+
+    .slide h2, .slide label {
+        color: #216eb9;
+    }
+
+    .slide input {
+        color: rgba(33, 110, 185, 0.65);
+    }
+
+    .face path {
+        fill: #216eb9;
+    }
+
+    body {
+        background-color: #FFFFFF;
+    }
+
+    .slide {
+        background-color: rgba(255, 255, 255, 0.9);
+    }
+
+    .slide.text {
+        background-color: #FFFFFF;
+    }
+
+    .slide h2, .slide label {
+        color: inherit;
+    }
+
+
+    html, body {
+        font-family: 'Raleway', sans-serif;
+    }
+
+    .slide:before {
+        background-image: url(../../images/p.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        content: "";
+
+        height: 120px;
+        width: 115px;
+        position: fixed;
+        top: 20px;
+        left: 20px;
+    }
+</style>
+
+    <link rel="stylesheet" href="../../css/custom.css">
+</head>
+<body>
+
+
+<style>
+    header {
+        border-bottom: #216eb9 18px solid;
+    }
+</style>
+
+<header>
+    <img src="../../img/pks-workshop.svg" alt="Pivotal Container Service Workshop">
+</header>
+
+<a class="feedback" href="https://goo.gl/forms/HC2WwNAx5pFPeCvD2" data-url-field="entry.31443528" target="_blank" rel="noreferrer noopener">
+    <button>
+        feedback
+    </button>
+</a>
+
+<main id="main">
+
+    <div id="content" class="container">
+        <article>
+ <h1 id="pivotal-container-service-tile-pks">Pivotal Container Service Tile (PKS)</h1>
+<h2 id="goal">Goal</h2>
+<p>Configure and deploy the PKS Tile within PCF Ops Manager.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Deployed Pivotal Ops Manager (2.0+)</li>
+<li>Deployed Pivotal Director Tile
+<ul>
+<li>Post-deploy scripts enabled</li>
+</ul>
+</li>
+<li>VMware vCenter
+<ul>
+<li>Admin Username/Password</li>
+<li>Datacenter Name</li>
+<li>Cluster Name</li>
+<li>Datastore Name</li>
+</ul>
+</li>
+</ul>
+<h2 id="download-pks-tile">Download PKS Tile</h2>
+<ol>
+<li>
+<p>Navigate to <a href="https://network.pivotal.io/" rel="noreferrer noopener">Pivotal Network</a></p>
+</li>
+<li>
+<p>Register and login.</p>
+</li>
+<li>
+<p>Download the <a href="https://network.pivotal.io/products/pivotal-container-service" rel="noreferrer noopener">Pivotal Container Service (PKS) Tile</a></p>
+</li>
+<li>
+<p>Accept the EULA</p>
+</li>
+</ol>
+<h2 id="upload-pks-tile-to-pivotal-ops-manager">Upload PKS Tile to Pivotal Ops Manager</h2>
+<ol>
+<li>
+<p>Navigate to the Pivotal Ops Manager FQDN (hostname).</p>
+</li>
+<li>
+<p>Login.</p>
+</li>
+<li>
+<p>Select <code>Import a Product</code>.</p>
+</li>
+<li>
+<p>Browse to the product downloaded earlier.</p>
+</li>
+<li>
+<p>Wait while the product is uploaded, this may take time depending on your connection to the Pivotal Ops Manager. <em>When completed notice the new product in the side panel of Pivotal Ops Manager.</em></p>
+</li>
+</ol>
+<h2 id="configure-the-pks-tile">Configure the PKS Tile</h2>
+<ol>
+<li>
+<p>Click the green <code>+</code> on the product tile.</p>
+</li>
+<li>
+<p>Click the <code>Pivotal Container Service</code> tile. PKS deploys kubernetes clusters on demand, where those clusters will live, and what features are enabled in those clusters will be defined in this tile.</p>
+</li>
+<li>
+<p>Configure the <code>Assign AZs and Networks</code> page.</p>
+<ul>
+<li>
+<p>Select an <code>AZ</code> for both the singleton jobs, and all other jobs to run in.</p>
+</li>
+<li>
+<p>Select <code>PKS-Management</code> for <code>network</code> if having followed earlier demos. This network is where the PKS Management API itself will live.</p>
+</li>
+<li>
+<p>Select <code>PKS-Clusters</code> for <code>service network</code> if having followed earlier demos. This network is where PKS will provision Kubernetes Clusters on demand.</p>
+</li>
+<li>
+<p>Click Save.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Configure the <code>PKS API</code> page.</p>
+<ul>
+<li>
+<p>Either generate a self signed certificate for our PKS API endpoint or copy/paste in the certificate PEM and private key PEM. This certificate will be used when connecting to the PKS management API endpoint. We will use this endpoint for deploying PKS clusters.</p>
+<ul>
+<li>The certificate must be valid for <code>*.pks.&lt;INSERT DOMAIN HERE&gt;</code>.</li>
+</ul>
+</li>
+<li>
+<p>Click Save.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Configure the Plan 1 - Plan 3 pages. These plans will define the type of Kubernetes clusters available for on demand deployment.</p>
+<p>For each plan:</p>
+<ul>
+<li>
+<p>Select <code>active</code> or <code>inactive</code>. At least one is required to be <code>active</code>.</p>
+</li>
+<li>
+<p>Fill in the <code>Name</code> and <code>Description</code> fields for each <code>active</code> plan.</p>
+</li>
+<li>
+<p>Select the AZ that the cluster will be deployed to.</p>
+</li>
+<li>
+<p>Select <code>RBAC</code> for Authorization Mode.</p>
+</li>
+<li>
+<p>Adjust the <code>ETCD/Master VM Type</code> depending on what you require for the plan.</p>
+<ul>
+<li>This will apply to <strong>ALL</strong> kubernetes clusters deployed with PKS and this plan</li>
+</ul>
+</li>
+<li>
+<p>Adjust the <code>Master Disk Type</code> depending on what you require for the plan.</p>
+<ul>
+<li>This will apply to <strong>ALL</strong> kubernetes clusters deployed with PKS and this plan</li>
+</ul>
+</li>
+<li>
+<p>Adjust the <code>Worker VM Type</code> depending on what you require for the plan.</p>
+<ul>
+<li>This will apply to <strong>ALL</strong> kubernetes clusters deployed with PKS and this plan</li>
+</ul>
+</li>
+<li>
+<p>Adjust the <code>Worker Persistent Disk Type</code> depending on what you require for the plan.</p>
+<ul>
+<li>This will apply to <strong>ALL</strong> kubernetes clusters deployed with PKS and this plan</li>
+</ul>
+</li>
+<li>
+<p>Adjust the <code>Worker Node Instances</code> depending on what you require for the plan.</p>
+<ul>
+<li>This can be changed on the fly when deploying kubernetes clusters with the PKS CLI</li>
+</ul>
+</li>
+<li>
+<p>Use the <code>Add-Ons</code> box to define what a cluster includes out of the box. This will add any additional deployments to the deployed Kubernetes cluster in the system namespace. For example, this could be a pod that gathers metrics or does logging for your cluster. This should be in a <code>yaml</code> format. You can specify multiple files using <code>---</code> as a separator.</p>
+</li>
+<li>
+<p>If you want users to be able to create pods with privileged containers, select the <code>Enable Privileged Containers - Use with caution</code> option.</p>
+</li>
+<li>
+<p>Click Save</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Configure the <code>Kubernetes Cloud Provider</code> page. This section will configure where the deployed Kubernetes clusters will store any persistent disks.</p>
+<ul>
+<li>
+<p>Choose <code>vSphere</code>.</p>
+</li>
+<li>
+<p>Fill in the corresponding values:</p>
+<ul>
+<li><code>vCenter Credentials</code></li>
+<li><code>vCenter Host</code></li>
+<li><code>Datacenter Name</code></li>
+<li><code>Datastore Name</code></li>
+</ul>
+</li>
+<li>
+<p>For the <code>VM Folder</code> we must tell PKS where our Kubernetes Clusters are currently deployed. To retrieve the name of the folder, navigate to your <code>Pivotal Ops Manager Director</code> tile, click vCenter Config, and locate the value for VM Folder. The default folder name is <code>pcf_vms</code>.</p>
+</li>
+<li>
+<p>Click Save.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Configure the <code>Networking</code> page. This section will configure how routing in Kubernetes is performed.</p>
+<ul>
+<li>
+<p>Select <code>Flannel</code>.</p>
+</li>
+<li>
+<p>Click Save.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Configure the <code>UAA</code> page.</p>
+<ul>
+<li>
+<p>Enter <code>api.pks.&lt;INSERT DOMAIN HERE&gt;</code> for the UAA URL. The UAA (User Authentication &amp; Authorization) service runs on the same VM that the PKS API will run on. In order to authenticate with it we must give it a valid hostname. <em>UAA will run on port 8443</em></p>
+</li>
+<li>
+<p>Click Save.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Configure the <code>Errands</code> page. Errands are scripts that run at designated points during an installation.</p>
+<ul>
+<li>
+<p>Enable the <code>Upgrade all clusters errand</code>.</p>
+<ul>
+<li>Because PKS uses floating stemcells, updating the PKS tile with a new stemcell triggers the rolling of every VM in all Kubernetes clusters. Also, updating other product tiles in your deployment with a new stemcell causes the PKS tile to roll VMs. This rolling is enabled by the Upgrade all clusters errand. Pivotal recommends that you keep this errand turned on because automatic rolling of VMs ensures that all deployed cluster VMs are patched. However, automatic rolling can cause downtime in your deployment.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="complete-the-pks-installation">Complete the PKS Installation</h2>
+<ol>
+<li>
+<p>Click the Installation Dashboard link to return to the Installation Dashboard.</p>
+<ul>
+<li><em>Notice the tile has changed form orange to green signifying it it ready to be applied!</em></li>
+</ul>
+</li>
+<li>
+<p>Click Apply Changes on the right navigation.</p>
+</li>
+</ol>
+         </article>
+        <div class="sidebar-container">
+<nav id="sidebar">
+    <div class="title">
+        <a href="../../index.html">Return to Pivotal Container Service Workshop</a>
+    </div>
+    <div class="content">
+        <a href="#">Back to top</a>
+
+<ul>
+        <li>
+        <a href="#pivotal-container-service-tile-pks">Pivotal Container Service Tile (PKS)</a>
+
+<ul>
+        <li>
+        <a href="#goal">Goal</a>
+
+        </li>
+        <li>
+        <a href="#prerequisites">Prerequisites</a>
+
+        </li>
+        <li>
+        <a href="#download-pks-tile">Download PKS Tile</a>
+
+        </li>
+        <li>
+        <a href="#upload-pks-tile-to-pivotal-ops-manager">Upload PKS Tile to Pivotal Ops Manager</a>
+
+        </li>
+        <li>
+        <a href="#configure-the-pks-tile">Configure the PKS Tile</a>
+
+        </li>
+        <li>
+        <a href="#complete-the-pks-installation">Complete the PKS Installation</a>
+
+        </li>
+</ul>
+        </li>
+</ul>
+    </div>
+</nav>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <a href="https://pivotal.io/legal" rel="noreferrer noopener">CONFIDENTIAL -
+        © Copyright 2018 Pivotal Software, Inc. All Rights Reserved.</a>
+    <div>
+        <label class="hidden-checkbox">
+            <input type="checkbox" id="instructor-mode">
+            <span>course version: 1.0.6<sup class="check">IM</sup></span>
+        </label>
+    </div>
+</footer>
+
+<script src="../../js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script src="../../js/shipkin.js"></script>
+<script src="../../js/slides.js"></script>
+
+</body></html>

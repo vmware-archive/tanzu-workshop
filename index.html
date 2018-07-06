@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<!-- saved from url=(0040)https://pks-workshop-v1.pal.pivotal.io/# -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="course version" content="1.0.6">
+<meta name="generator" content="io.pivotal.pal.shipkin:shipkin-plugin:5.0.0, https://github.com/platform-acceleration-lab/shipkin">
+<meta name="generated on" content="2018-03-13T16:17:21.333Z">
+<meta name="theme-color" content="#216eb9">
+
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Pivotal Container as a Service Workshop</title>
+
+<link rel="icon" href="https://pks-workshop-v1.pal.pivotal.io/images/favicon.ico">
+
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/highlight.js.min.css">
+<link rel="stylesheet" href="css/github.css">
+
+<style>
+    @import url(''https://fonts.googleapis.com/css?family=Raleway:500,500i,700,700i'');
+
+    #header {
+        border-color: #216eb9;
+        background-color: #216eb9;
+    }
+
+    footer {
+        background-color: #216eb9;
+    }
+
+    .label.label-primary {
+        background-color: #216eb9;
+    }
+
+    a {
+        color: #216eb9;
+    }
+
+    .label.label-primary:hover, .label.label-primary:focus {
+        background-color: #307dc8;
+    }
+
+    a:hover, a:focus {
+        color: #307dc8;
+    }
+
+    .slide {
+        color: #216eb9;
+    }
+
+    .slide h2, .slide label {
+        color: #216eb9;
+    }
+
+    .slide input {
+        color: rgba(33, 110, 185, 0.65);
+    }
+
+    .face path {
+        fill: #216eb9;
+    }
+
+    body {
+        background-color: #FFFFFF;
+    }
+
+    .slide {
+        background-color: rgba(255, 255, 255, 0.9);
+    }
+
+    .slide.text {
+        background-color: #FFFFFF;
+    }
+
+    .slide h2, .slide label {
+        color: inherit;
+    }
+
+
+    html, body {
+        font-family: 'Raleway', sans-serif;
+    }
+
+    .slide:before {
+        background-image: url(images/p.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        content: "";
+
+        height: 120px;
+        width: 115px;
+        position: fixed;
+        top: 20px;
+        left: 20px;
+    }
+</style>
+
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+<body>
+
+
+<style>
+    header {
+        border-bottom: #216eb9 18px solid;
+    }
+</style>
+
+<header>
+    <img src="img/pks-workshop.svg" alt="Pivotal CaaS Workshop">
+</header>
+
+<a class="feedback" href="https://goo.gl/forms/HC2WwNAx5pFPeCvD2" data-url-field="entry.31443528" target="_blank" rel="noreferrer noopener">
+    <button>
+        feedback
+    </button>
+</a>
+
+<main id="main">
+
+    <div id="content" class="container">
+        <article>
+ <h1></h1>
+    <h2>Pivotal Container Service - PKS</h2>
+    <ul class="index">
+            <li>
+                <div>
+                    The Story of PKS
+                </div>
+
+                <div class="links">
+                    <div class="link">
+                                <a href="unit/story-of-pks/slides.html" class="label label-primary" rel="noreferrer noopener">slides</a>                     
+                    </div>
+                    <div class="link">
+                    </div>
+                    <div class="link">
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div>
+                    What is it?
+                </div>
+
+                <div class="links">
+                    <div class="link">
+                                <a href="unit/what-is-it/slides.html" class="label label-primary" rel="noreferrer noopener">slides</a>                     
+                    </div>
+                    <div class="link">
+                    </div>
+                    <div class="link">
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div>
+                    PKS Architecture
+                </div>
+
+                <div class="links">
+                    <div class="link">
+                                <a href="unit/architecture/slides.html" class="label label-primary" rel="noreferrer noopener">slides</a>                     
+                    </div>
+                    <div class="link">
+                    </div>
+                    <div class="link">
+                    </div>
+                </div>
+            </li>
+    </ul>
+    <h2>Installation & Configuration</h2>
+    <ul class="index">    
+            <li>
+                <div>
+                    Pivotal Operations Manager
+                </div>
+
+                <div class="links">                      
+                    <div class="link">
+                    </div>
+                    <div class="link">
+                                <a href="unit/operations-manager/video.html" class="label label-primary" rel="noreferrer noopener">video</a>
+                    </div>
+                    <div class="link">
+                                <a href="unit/operations-manager/demo.html" class="label label-primary" rel="noreferrer noopener">demo</a>
+                    </div>                    
+                </div>
+            </li>
+            <li>
+                <div>
+                    Pivotal Director Tile
+                </div>
+
+                <div class="links">        
+                    <div class="link">
+                    </div>
+                    <div class="link">
+                                <a href="unit/director-tile/video.html" class="label label-primary" rel="noreferrer noopener">video</a>
+                    </div>
+                    <div class="link">
+                                <a href="unit/director-tile/demo.html" class="label label-primary" rel="noreferrer noopener">demo</a>
+                    </div>                    
+                </div>
+            </li>
+            <li>
+                <div>
+                    NSX-T
+                </div>
+
+                <div class="links">                    
+                    <div class="link">
+                    </div>
+                    <div class="link">
+                                <a href="unit/nsx-t/video.html" class="label label-primary" rel="noreferrer noopener">video</a>
+                    </div>
+                    <div class="link">
+                                <a href="unit/nsx-t/demo.html" class="label label-primary" rel="noreferrer noopener">demo</a>
+                    </div>                    
+                </div>
+            </li>
+            <li>
+                <div>
+                    PKS Tile
+                </div>
+
+                <div class="links">                    
+                    <div class="link">
+                    </div>
+                    <div class="link">
+                                <a href="unit/pks-tile/video.html" class="label label-primary" rel="noreferrer noopener">video</a>
+                    </div>
+                    <div class="link">
+                                <a href="unit/pks-tile/demo.html" class="label label-primary" rel="noreferrer noopener">demo</a>
+                    </div>                    
+                </div>
+            </li>
+            <li>
+                <div>
+                    Harbor Tile
+                </div>
+
+                <div class="links">                    
+                    <div class="link">
+                    </div>
+                    <div class="link">
+                                <a href="unit/harbor-tile/video.html" class="label label-primary" rel="noreferrer noopener">video</a>
+                    </div>
+                    <div class="link">
+                                <a href="unit/harbor-tile/demo.html" class="label label-primary" rel="noreferrer noopener">demo</a>
+                    </div>                    
+                </div>
+            </li>
+    </ul>
+    <h2>Management</h2>
+    <ul class="index">
+            <li>
+                <div>
+                    Managing Clusters
+                </div>
+
+                <div class="links">
+                    <div class="link">
+                                <a href="unit/managing-clusters/slides.html" class="label label-primary" rel="noreferrer noopener">slides</a>
+                    </div>
+                    <div class="link">
+                                <a href="unit/managing-clusters/video.html" class="label label-primary" rel="noreferrer noopener">video</a>
+                    </div>
+                    <div class="link">
+                                <a href="unit/managing-clusters/demo.html" class="label label-primary" rel="noreferrer noopener">demo</a>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div>
+                    Managing Containers
+                </div>
+
+                <div class="links">
+                    <div class="link">
+                                <a href="unit/managing-containers/slides.html" class="label label-primary" rel="noreferrer noopener">slides</a>
+                    </div>
+                    <div class="link">
+                                <a href="unit/managing-containers/video.html" class="label label-primary" rel="noreferrer noopener">video</a>
+                    </div>
+                    <div class="link">
+                                <a href="unit/managing-containers/demo.html" class="label label-primary" rel="noreferrer noopener">demo</a>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div>
+                    Managing vxRails
+                </div>
+
+                <div class="links">
+                    <div class="link">
+                                <a href="unit/managing-vxrails/slides.html" class="label label-primary" rel="noreferrer noopener">slides</a>
+                    </div>
+                    <div class="link">
+                                <a href="unit/managing-vxrails/video.html" class="label label-primary" rel="noreferrer noopener">video</a>
+                    </div>
+                    <div class="link">
+                                <a href="unit/managing-vxrails/demo.html" class="label label-primary" rel="noreferrer noopener">demo</a>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div>
+                    Managing Apps & Workloads
+                </div>
+
+                <div class="links">
+                    <div class="link">
+                                <a href="unit/managing-workloads/slides.html" class="label label-primary" rel="noreferrer noopener">slides</a>
+                    </div>
+                    <div class="link">
+                                <a href="unit/managing-workloads/video.html" class="label label-primary" rel="noreferrer noopener">video</a>
+                    </div>
+                    <div class="link">
+                                <a href="unit/managing-workloads/demo.html" class="label label-primary" rel="noreferrer noopener">demo</a>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div>
+                    Platform Updates via Concourse
+                </div>
+
+                <div class="links">
+                    <div class="link">
+                                <a href="unit/concourse/slides.html" class="label label-primary" rel="noreferrer noopener">slides</a>
+                    </div>
+                    <div class="link">
+                                <a href="unit/concourse/video.html" class="label label-primary" rel="noreferrer noopener">video</a>
+                    </div>
+                    <div class="link">
+                                <a href="unit/concourse/demo.html" class="label label-primary" rel="noreferrer noopener">demo</a>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div>
+                    Observability
+                </div>
+
+                <div class="links">
+                    <div class="link">
+                                <a href="unit/observability/slides.html" class="label label-primary" rel="noreferrer noopener">slides</a>
+                    </div>
+                    <div class="link">
+                                <a href="unit/observability/video.html" class="label label-primary" rel="noreferrer noopener">video</a>
+                    </div>
+                    <div class="link">
+                                <a href="unit/observability/demo.html" class="label label-primary" rel="noreferrer noopener">demo</a>
+                    </div>
+                </div>
+            </li>                 
+    </ul>
+         </article>
+    </div>
+</main>
+
+<footer>
+    <a href="https://pivotal.io/legal" rel="noreferrer noopener">CONFIDENTIAL -
+        © Copyright 2018 Pivotal Software, Inc. All Rights Reserved.</a>
+    <div>
+        <label class="hidden-checkbox">
+            <input type="checkbox" id="instructor-mode">
+            <span>course version: 1.0.6<sup class="check">IM</sup></span>
+        </label>
+    </div>
+</footer>
+
+<script src="js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script src="js/shipkin.js"></script>
+<script src="js/slides.js"></script>
+
+
+
+
+</body></html>

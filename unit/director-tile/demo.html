@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)https://pks-workshop-v1.pal.pivotal.io/unit/pivotal-ops-manager/demo.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="course version" content="1.0.6">
+<meta name="generator" content="io.pivotal.pal.shipkin:shipkin-plugin:5.0.0, https://github.com/platform-acceleration-lab/shipkin">
+<meta name="generated on" content="2018-03-13T16:17:21.299Z">
+<meta name="theme-color" content="#216eb9">
+
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Pivotal Container Service Workshop</title>
+
+<link rel="icon" href="../../img/favicon.ico">
+
+<link rel="stylesheet" href="../../css/reset.css">
+<link rel="stylesheet" href="../../css/theme.css">
+<link rel="stylesheet" href="../../css/highlight.js.min.css">
+<link rel="stylesheet" href="../../css/github.css">
+
+<style>
+    @import url(''https://fonts.googleapis.com/css?family=Raleway:500,500i,700,700i'');
+
+    #header {
+        border-color: #216eb9;
+        background-color: #216eb9;
+    }
+
+    footer {
+        background-color: #216eb9;
+    }
+
+    .label.label-primary {
+        background-color: #216eb9;
+    }
+
+    a {
+        color: #216eb9;
+    }
+
+    .label.label-primary:hover, .label.label-primary:focus {
+        background-color: #307dc8;
+    }
+
+    a:hover, a:focus {
+        color: #307dc8;
+    }
+
+    .slide {
+        color: #216eb9;
+    }
+
+    .slide h2, .slide label {
+        color: #216eb9;
+    }
+
+    .slide input {
+        color: rgba(33, 110, 185, 0.65);
+    }
+
+    .face path {
+        fill: #216eb9;
+    }
+
+    body {
+        background-color: #FFFFFF;
+    }
+
+    .slide {
+        background-color: rgba(255, 255, 255, 0.9);
+    }
+
+    .slide.text {
+        background-color: #FFFFFF;
+    }
+
+    .slide h2, .slide label {
+        color: inherit;
+    }
+
+
+    html, body {
+        font-family: 'Raleway', sans-serif;
+    }
+
+    .slide:before {
+        background-image: url(../../images/p.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        content: "";
+
+        height: 120px;
+        width: 115px;
+        position: fixed;
+        top: 20px;
+        left: 20px;
+    }
+</style>
+
+    <link rel="stylesheet" href="../../css/custom.css">
+</head>
+<body>
+
+
+<style>
+    header {
+        border-bottom: #216eb9 18px solid;
+    }
+</style>
+
+<header>
+    <img src="../../img/pks-workshop.svg" alt="Pivotal Container Service Workshop">
+</header>
+
+<a class="feedback" href="https://goo.gl/forms/HC2WwNAx5pFPeCvD2" data-url-field="entry.31443528" target="_blank" rel="noreferrer noopener">
+    <button>
+        feedback
+    </button>
+</a>
+
+<main id="main">
+
+    <div id="content" class="container">
+        <article>
+ <h1 id="pcf-director">PCF Director</h1>
+<h2 id="goal">Goal</h2>
+<p>Configure and deploy PCF Director Tile within PCF Ops Manager. This will be our base to build PKS on.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>VMware vCenter
+<ul>
+<li>Admin Username/Password</li>
+<li>Datacenter Name</li>
+<li>Cluster Name</li>
+<li>Datastore Name</li>
+<li>Network Name</li>
+</ul>
+</li>
+<li>IP Range of (around) 30 IPs converted to CIDR to assign to PKS. ( <a href="http://www.subnet-calculator.com/cidr.php" rel="noreferrer noopener">CIDR Calculator</a> )
+<ul>
+<li>Gateway, DNS, and Netmask corresponding to this range.</li>
+</ul>
+</li>
+<li>NTP Server</li>
+<li>Deployed Pivotal Ops Manager</li>
+</ul>
+<h2 id="enable-pcf-director-and-vsphere-cloud-communication">Enable PCF Director and (vSphere) Cloud Communication</h2>
+<ol>
+<li>
+<p>Navigate to the Ops Manager FQDN (hostname).</p>
+</li>
+<li>
+<p>Login with the Ops Manager credentials setup earlier.</p>
+</li>
+<li>
+<p>Click on Director Tile (vSphere). PCF deploys and manages disks, networks, and vms. In order to do this it needs access to our IaaS. This is where we will configure how it manages the IaaS.</p>
+</li>
+<li>
+<p>On the <code>vCenter Config</code> page fill in the following information:</p>
+<ul>
+<li><strong>vCenter Host:</strong> The hostname of the vCenter that manages the ESXi/vSphere cluster.</li>
+<li><strong>vCenter Username:</strong> A vCenter username with create and delete privileges for virtual machines (VMs), disks, and folders.</li>
+<li><strong>vCenter Password:</strong> The password for the vCenter user specified above.</li>
+<li><strong>Datacenter Name:</strong> The name of the datacenter as it appears in vCenter.</li>
+<li><strong>Virtual Disk Type:</strong> The Virtual Disk Type to provision for all VMs.</li>
+<li><strong>Ephemeral Datastore Names (comma delimited):</strong> The names of the datastores that store ephemeral VM disks deployed by Ops Manager.</li>
+<li><strong>Persistent Datastore Names (comma delimited):</strong> The names of the datastores that store persistent VM disks deployed by Ops Manager.</li>
+<li><strong>Networking Type:</strong> We will use <code>Standard vCenter Networking</code> for this guide. NSX can also be used.</li>
+<li><strong>VM Folder:</strong> The vSphere datacenter folder (default: <code>pcf_vms</code>) where Ops Manager places VMs.</li>
+<li><strong>Template Folder:</strong> The vSphere datacenter folder (default: <code>pcf_templates</code>) where Ops Manager places VM templates.</li>
+<li><strong>Disk path Folder:</strong> The vSphere datastore folder (default: <code>pcf_disk</code>) where Ops Manager creates and stores disk images. You must not nest this folder.</li>
+<li><em>Note: After your initial deployment, you will not be able to edit the VM Folder, Template Folder, and Disk path Folder names.</em></li>
+</ul>
+</li>
+<li>
+<p>On the <code>Director Config</code> page fill in the following:</p>
+<ul>
+<li><strong>NTP Servers:</strong> A valid NTP server(s) to keep time for the PCF Director.</li>
+<li><strong><em>Ensure</em></strong> <strong>Enable Post Deploy Scripts</strong> is checked.</li>
+</ul>
+</li>
+<li>
+<p>On the <code>Create Availability Zones</code> page we create multiple Availability Zones which allow us to provide high-availability and load balancing to our containers deployed to PKS. At least three availability zones are recommended for a highly available installation of PKS.</p>
+<p>To add <strong>Availability Zones</strong> run the following:</p>
+<ul>
+<li>Click Add.</li>
+<li>Enter a unique Name for the Availability Zone.</li>
+<li>Enter the name of an existing vCenter Cluster to use as an Availability Zone.</li>
+<li>(Optional) Enter the name of a Resource Pool in the vCenter cluster that you specified above. The jobs running in this Availability Zone share the CPU and memory resources defined by the pool.</li>
+</ul>
+</li>
+<li>
+<p>On the <code>Create Networks</code> page we create virtual networks which allows the PCF Director to deploy VMs in specific networks. We will create 2 networks, one for the management of PKS, and one for the kubernetes clusters themselves.</p>
+<p>To add <strong>Networks</strong> run the following:</p>
+<ul>
+<li>
+<p>Select Enable ICMP checks to enable ICMP on your networks. Ops Manager uses ICMP checks to confirm that components within your network are reachable.</p>
+</li>
+<li>
+<p>PKS deploys Kubernetes Clusters on demand via a CLI command. The PKS API Manager itself requires a single VM which will listen for CLI commands and then deploy the cluster. This VM will be deployed in the network we create below:</p>
+<ul>
+<li>Click <code>Add Network</code>.</li>
+<li>Enter <code>PKS-Management</code> for the network.</li>
+<li>Click <code>Add Subnet</code> to create one or more subnets for the network.</li>
+<li>Enter the full path and name of the vSphere Network Switch we will use to connect VMs to. For example <code>VM Network</code>. If your vSphere Network Name contains a forward slash character, replace the forward slash with the URL-encoded forward slash character %2F. For example <code>YOUR-DIRECTORY-NAME%2FYOUR-NETWORK-NAME</code>.</li>
+<li>For CIDR, enter a valid CIDR block in which to deploy VMs. For example, enter 192.0.2.0/24. <strong>This should be a range of IPs that can be used for the management plane of PKS. Only 10 IPs will be needed for this development env.</strong></li>
+<li>For Reserved IP Ranges, enter any IP addresses from the CIDR that you want to blacklist from the installation. PKS will not deploy any VM to any address in this range.</li>
+<li>Enter your DNS and Gateway IP addresses for this network.</li>
+<li>Select which Availability Zones to use with the network.</li>
+</ul>
+</li>
+<li>
+<p>PKS deploys Kubernetes Clusters on demand via a CLI command. Those clusters will be deployed in the network we create below:</p>
+<ul>
+<li>Click Add Network.</li>
+<li>Enter <code>PKS-Clusters</code> for the network.</li>
+<li>In order to dynamically provision PKS clusters in this network, select the <code>Service Networks</code> checkbox.</li>
+<li>Click Add Subnet to create one or more subnets for the network.</li>
+<li>Enter the full path and name of the vSphere Network Switch we will use to connect VMs to. For example <code>VM Network</code>. If your vSphere Network Name contains a forward slash character, replace the forward slash with the URL-encoded forward slash character %2F. For example <code>YOUR-DIRECTORY-NAME%2FYOUR-NETWORK-NAME</code>.</li>
+<li>For CIDR, enter a valid CIDR block in which to deploy VMs. For example, enter 192.0.2.0/24. <strong>This should be a range of IPs that can be used for all of the PKS clusters. EACH Kubernetes cluster you want to deploy will use at least 2 IPs.</strong></li>
+<li>For Reserved IP Ranges, enter any IP addresses from the CIDR that you want to blacklist from the installation. PKS will not deploy any VM to any address in this range.</li>
+<li>Enter your DNS and Gateway IP addresses.</li>
+<li>Select which Availability Zones to use with the network.</li>
+</ul>
+</li>
+<li>
+<p>Click Save.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>On the <code>Assign AZs and Networks</code> page we decide to which <code>network</code> and <code>AZ</code> PCF Director should be deployed to as follows:</p>
+<ul>
+<li>Since the Director is a single VM, use the drop-down menu to select a Singleton Availability Zone for it.</li>
+<li>Use the drop-down menu to select a Network for your PCF Ops Manager Director. We will use <code>PKS-Management</code>.</li>
+<li>Click Save.</li>
+</ul>
+</li>
+</ol>
+<h2 id="complete-the-pcf-director-installation">Complete the PCF Director Installation</h2>
+<ol>
+<li>
+<p>Click the Installation Dashboard link to return to the Installation Dashboard.</p>
+<ul>
+<li><em>Notice the tile has changed form orange to green signifying it it ready to be applied!</em></li>
+</ul>
+</li>
+<li>
+<p>Click &quot;Apply Changes&quot; on the right navigation to begin deploying!</p>
+</li>
+</ol>
+         </article>
+        <div class="sidebar-container">
+<nav id="sidebar">
+    <div class="title">
+        <a href="../../index.html">Return to Pivotal Container Service Workshop</a>
+    </div>
+    <div class="content">
+        <a href="#">Back to top</a>
+
+<ul>
+        <li>
+        <a href="#pcf-director">PCF Director</a>
+
+<ul>
+        <li>
+        <a href="#goal">Goal</a>
+
+        </li>
+        <li>
+        <a href="#prerequisites">Prerequisites</a>
+
+        </li>
+        <li>
+        <a href="#enable-pcf-director-and-vsphere-cloud-communication">Enable PCF Director and (vSphere) Cloud Communication</a>
+
+        </li>
+        <li>
+        <a href="#complete-the-pcf-director-installation">Complete the PCF Director Installation</a>
+
+        </li>
+</ul>
+        </li>
+</ul>
+    </div>
+</nav>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <a href="https://pivotal.io/legal" rel="noreferrer noopener">CONFIDENTIAL -
+        © Copyright 2018 Pivotal Software, Inc. All Rights Reserved.</a>
+    <div>
+        <label class="hidden-checkbox">
+            <input type="checkbox" id="instructor-mode">
+            <span>course version: 1.0.6<sup class="check">IM</sup></span>
+        </label>
+    </div>
+</footer>
+
+<script src="../../js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script src="../../js/shipkin.js"></script>
+<script src="../../js/slides.js"></script>
+
+</body></html>

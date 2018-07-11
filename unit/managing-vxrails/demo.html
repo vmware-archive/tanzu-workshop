@@ -26,7 +26,7 @@
     #header {
         border-color: #216eb9;
         background-color: #216eb9;
-    }
+    }ff
 
     footer {
         background-color: #216eb9;
@@ -124,13 +124,13 @@
 
     <div id="content" class="container">
         <article>
- <h1 id="pivotal-ops-manager">Pivotal Ops Manager</h1>
+ <h1 id="pivotal-ready-architecture">Pivotal Ready Architecture</h1>
 <h2 id="goal">Goal</h2>
-<p>Bring up the PCF Ops Manager VM within vCenter. This will be the operational console we will use to deploy PKS.</p>
+<p>Understand the benefits of VxRail and VxRail Manager for deployment of the Pivotal Ready Architecture.</p>
 <h2 id="prerequisites">Prerequisites</h2>
 <ul>
-<li>VMware vCenter</li>
-<li>Ability to upload <code>*.OVA</code> template to vCenter</li>
+<li>VxRail Deployed</li>
+<li>User name and PW for VxRail Manager</li>
 <li>IP to assign to the PCF Ops Manager with DNS hostname.
 <ul>
 <li>Gateway, DNS, and Netmask corresponding to this IP.</li>
@@ -138,7 +138,7 @@
 </li>
 <li>NTP Server</li>
 </ul>
-<h2 id="download-the-ova-template">Download the OVA Template:</h2>
+<h2 id="download-the-ova-template">Install VxRail:</h2>
 <ol>
 <li>Point your browser to <code>https://network.pivotal.io/</code></li>
 <li>Create an Account and Login</li>
@@ -147,7 +147,7 @@
 <li>Accept the EULA</li>
 <li><strong>Ensure</strong> the release is <code>2.0</code> or higher!</li>
 </ol>
-<h2 id="upload-the-ova-template-to-vsphere">Upload the OVA Template to vSphere:</h2>
+<h2 id="upload-the-ova-template-to-vsphere">VxRail Manager:</h2>
 <ol>
 <li>
 <p>Login into your vSphere Web Client</p>
@@ -192,7 +192,7 @@
 <p>Once fully uploaded to vSphere, power on the VM.</p>
 </li>
 </ol>
-<h2 id="configuring-pcf-ops-manager">Configuring PCF Ops Manager</h2>
+<h2 id="configuring-pcf-ops-manager">Scale Out VxRail (Add a Node)</h2>
 <ol>
 <li>
 <p>Navigate to <code>https://&lt;HOSTNAME-SPECIFIED-EARLIER&gt;</code>. If you do not have DNS setup to resolve the hostname to the Ops Manager VM given earlier when deploying the OVA, directly utilize the IP specified earlier, to access Ops Manager.</p>

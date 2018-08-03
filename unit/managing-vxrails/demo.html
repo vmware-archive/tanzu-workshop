@@ -131,20 +131,13 @@
 <ul>
 <li>VxRail Deployed</li>
 <li>Access & ID to http://democenter.dell.com</li>
-<li>X
+<li> Access to Live VxRail environment for observability demo of VxRail Manager</li>
 <ul>
-<li>X</li>
-</ul>
-</li>
-<li>X</li>
 </ul>
 <h2 id="vxrail-overview">VxRail Overview:</h2>
 <ol>
 <li>This demo will give the customer an overview of the most important functions of VxRail and show how it is a key buidling block for the most reliable, repeatable way to stand up Pivotal Cloud Foundry On-Premesis.</li>
 
-</ol>
-<h2 id="vxrail-overview">PRA Site Survey Tool:</h2>
-<ol>
 
 </ol>
 <h2 id="install-vxrail">Install VxRail:</h2>
@@ -169,87 +162,52 @@
 <li>After build completes your ready to log into the VxRail appliance</li>
 <li>Click <code>ESC</code> to return to the next demo.</li>
 </ol>
-<h2 id="vxrail-upgrade">VxRail Upgrade:</h2>
+<h2 id="update-vxrail">Update VxRail:</h2>
 <ol>
-<li>
-<p>From <code>http://democenter.dell.com</code> click <code>Start</code> then <code> Upgrade</code>. </p>
-</li>
-<li>
-<p>Click the <code>installed components</code> link to view the current configuration of software on the VxRail before upgrade.</p>
-</li>
-<li>
-<p>Click <code>Local Upgrade</code> then select the upgrade file and click <code>Open</code>  View the progress of the upload of the package.  Once the upload is successful click <code>Continue</code> to proceed. </p>
-</li>
-<li>
-<p>Enter all the credentials needed as prompted on the screen and click <code>Submit</code></p> 
-</li>
-<li>
-<p>Select a <code>Datacenter</code> where the VM will live</p>
-</li>
-<li>
-<p>Select a <code>cluster</code> where the VM will live</p>
-</li>
-<li>
-<p>Review the details and click <code>next</code></p>
-</li>
-<li>
-<p>Select a <code>datastore</code> where the VM will live</p>
-</li>
-<li>
-<p>Select a <code>network</code> where the VM will live</p>
-</li>
-<li>
-<p>Fill in the specific values for PCF Ops Manager as defined below and click <code>next</code> followed by <code>finish</code>!</p>
-<ul>
-<li><strong>Admin Password:</strong> This password is used to SSH into the Ops Manager VM we are deploying. The username is always <code>ubuntu</code></li>
-<li><strong>Custom Hostname:</strong> If you would like to set a custom hostname for the PCF Ops Manager do so here, this hostname should resolve to the PCF Ops Manager IP.</li>
-<li><strong>DNS:</strong> The DNS server that can resolve hostnames within your datacenter.</li>
-<li><strong>Default Gateway:</strong> When we are attempting to communicate with an IP that is out of our local subnet we will go to a router for directions. Put that router IP here.</li>
-<li><strong>IP Address:</strong> The IP address for the Ops Manager VM.</li>
-<li><strong>NTP Servers:</strong> A valid NTP server to keep time for the Ops Manager VM.</li>
-<li><strong>Netmask:</strong> The corresponding netmask for our subnet.</li>
-</ul>
-</li>
-<li>
-<p>Once fully uploaded to vSphere, power on the VM.</p>
-</li>
-</ol>
-<h2 id="configuring-pcf-ops-manager">Scale Out VxRail (Add a Node)</h2>
+    <li>Point your browser to <code>https://democenter.dell.com/</code></li>
+    <li>Create an Account and Login</li>
+    <li>In the search box type <code>VxRail </code> and find VxRail 4.5 and click <code>Connect</code></li>
+    <li>Click <code>Start</code> click <code>Install VxRail</code>.</li>
+    <li>Click <code>Get Started</code> then accept the EULA and click <code>Accept</code>.</li>
+    <li>Click <code>Confirm</code> to accept the node configuration and click <code>Next</code>.</li>
+    <li>Select the <code>JSON Configuration</code> then click the file and <code>Open</code> then <code>Next</code>.</li>
+    <li>Click <code>Get Started</code> then accept the EULA and click <code>Accept</code>.</li>
+    <li>Now you will see all the values populated for build.  Click <code>Next</code>.</li>
+    <li>Scroll to the bottom of the page and view the configuration settings.  Click <code>Continue</code></li>
+    <li>Configure the vMotion Network and click <code>Next</code>.</li>
+    <li>Configure vSAN and click <code>Next</code>.</li>
+    <li>Configure VM Networks and click <code>Next</code>.</li>
+    <li>Configure Solutions for logging (in this installation we have used log insight) and click <code>Next</code>.</li>
+    <li>Configure all of the login credentials and click <code>Next</code>.</li>
+    <li>Validate that all of tasks have been completed and all checks are green and click <code>Validate</code>.</li>
+    <li>Any errors would appear on this screen.  Now download the JSON file to review the config, then click <code>Build VxRail</code> then <code>Start Configuration</code>.</li>
+    <li>After build completes your ready to log into the VxRail appliance</li>
+    <li>Click <code>ESC</code> to return to the next demo.</li>
+    </ol>
+    
+<h2 id="scale-vxrail">Scale Out VxRail (Add a Node)</h2>
 <ol>
-<li>
-<p>Navigate to <code>https://&lt;HOSTNAME-SPECIFIED-EARLIER&gt;</code>. If you do not have DNS setup to resolve the hostname to the Ops Manager VM given earlier when deploying the OVA, directly utilize the IP specified earlier, to access Ops Manager.</p>
-</li>
-<li>
-<p>You might need to accept the SSL cert if it is <code>self-signed</code>.</p>
-</li>
-<li>
-<p>Depending on your needs select the correct type of Authentication System, we will choose <code>Internal Authentication</code> for the remander of this guide. Under the covers PCF Ops Manager deploys <code>PCF UAA</code> which manages access to the <code>PCF</code> ecosystem. The type of authentication system you choose defines how <code>UAA</code> will retrieve and store users that can access the PCF Ops Manager.</p>
-<p>More info below:</p>
-<ul>
-<li>
-<p><strong>Use an Identity Provider:</strong> Links together PCF Ops Manager with an external Identity Provider which maintains the user database to access the PCF Ops Manager. SAML is an example of an IdP type, and Okta is an example of a IdP itself.</p>
-</li>
-<li>
-<p><strong>Internal Authentication:</strong> PCF UAA will create and maintain a new user database for use with PCF Ops Manager.</p>
-</li>
-</ul>
-</li>
-<li>
-<p>Set <code>username</code> and <code>password</code>. These will be used to login to the PCF Ops Manager <strong>GUI</strong>.</p>
-<ul>
-<li><em>Remember <code>ssh</code> credentials were specified earlier!</em></li>
-</ul>
-</li>
-<li>
-<p>Set the <code>Decryption passphrase</code>. This is used to encrypt the database backing our authentication service <code>PCF UAA</code>.</p>
-</li>
-<li>
-<p>Set <code>Http Proxy</code>, <code>Https Proxy</code>, and <code>No proxy</code> depending on <em>if</em> you need to use a proxy to access the internet from your datacenter.</p>
-</li>
-<li>
-<p>Agree to the terms and click <code>finish</code>!</p>
-</li>
-</ol>
+    <li>Point your browser to <code>https://democenter.dell.com/</code></li>
+    <li>Create an Account and Login</li>
+    <li>In the search box type <code>VxRail </code> and find VxRail 4.5 and click <code>Connect</code></li>
+    <li>Click <code>Start</code> click <code>Install VxRail</code>.</li>
+    <li>Click <code>Get Started</code> then accept the EULA and click <code>Accept</code>.</li>
+    <li>Click <code>Confirm</code> to accept the node configuration and click <code>Next</code>.</li>
+    <li>Select the <code>JSON Configuration</code> then click the file and <code>Open</code> then <code>Next</code>.</li>
+    <li>Click <code>Get Started</code> then accept the EULA and click <code>Accept</code>.</li>
+    <li>Now you will see all the values populated for build.  Click <code>Next</code>.</li>
+    <li>Scroll to the bottom of the page and view the configuration settings.  Click <code>Continue</code></li>
+    <li>Configure the vMotion Network and click <code>Next</code>.</li>
+    <li>Configure vSAN and click <code>Next</code>.</li>
+    <li>Configure VM Networks and click <code>Next</code>.</li>
+    <li>Configure Solutions for logging (in this installation we have used log insight) and click <code>Next</code>.</li>
+    <li>Configure all of the login credentials and click <code>Next</code>.</li>
+    <li>Validate that all of tasks have been completed and all checks are green and click <code>Validate</code>.</li>
+    <li>Any errors would appear on this screen.  Now download the JSON file to review the config, then click <code>Build VxRail</code> then <code>Start Configuration</code>.</li>
+    <li>After build completes your ready to log into the VxRail appliance</li>
+    <li>Click <code>ESC</code> to return to the next demo.</li>
+    </ol>
+    
          </article>
         <div class="sidebar-container">
 <nav id="sidebar">
@@ -261,15 +219,15 @@
 
 <ul>
         <li>
-        <a href="demo.html#pivotal-ops-manager">Pivotal Ops Manager</a>
+        <a href="demo.html#vxrail-overview">VxRail Overview</a>
 
 <ul>
         <li>
-        <a href="demo.html#goal">Goal</a>
+        <a href="demo.html#install-vxrail">Install VxRail</a>
 
         </li>
         <li>
-        <a href="demo.html#prerequisites">Prerequisites</a>
+        <a href="demo.html#update-vxrail">Update VxRail</a>
 
         </li>
         <li>
@@ -309,5 +267,9 @@
 
 <script src="../../js/shipkin.js"></script>
 <script src="../../js/slides.js"></script>
+
+</ol>
+<h2 id="vxrail-overview">PRA Site Survey Tool:</h2>
+<ol>
 
 </body></html>

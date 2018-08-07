@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- saved from url=(0073)https://pks-workshop-v1.pal.pivotal.io/unit/pivotal-ops-manager/demo.html -->
+<!-- saved from url=(0068)https://pks-workshop-v1.pal.pivotal.io/unit/story-of-pks/slides.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="course version" content="1.0.6">
 <meta name="generator" content="io.pivotal.pal.shipkin:shipkin-plugin:5.0.0, https://github.com/platform-acceleration-lab/shipkin">
-<meta name="generated on" content="2018-03-13T16:17:21.299Z">
+<meta name="generated on" content="2018-03-13T16:17:21.288Z">
 <meta name="theme-color" content="#216eb9">
 
 
@@ -124,90 +124,9 @@
 
     <div id="content" class="container">
         <article>
- <h1 id="pivotal-ready-architecture">Pivotal Ready Architecture</h1>
-<h2 id="goal">Goal</h2>
-<p>Understand the benefits of VxRail and VxRail Manager for deployment of the Pivotal Ready Architecture.</p>
-<h2 id="prerequisites">Prerequisites</h2>
-<ul>
-<li>VxRail Deployed</li>
-<li>Access & ID to http://democenter.dell.com</li>
-<li> Access to Live VxRail environment for observability demo of VxRail Manager</li>
-<ul>
-</ul>
-<h2 id="vxrail-overview">VxRail Overview:</h2>
-<ol>
-<li>This demo will give the customer an overview of the most important functions of VxRail and show how it is a key buidling block for the most reliable, repeatable way to stand up Pivotal Cloud Foundry On-Premesis.</li>
-
-
-</ol>
-<h2 id="install-vxrail">Install VxRail:</h2>
-<ol>
-<li>Point your browser to <code>https://democenter.dell.com/</code></li>
-<li>Create an Account and Login</li>
-<li>In the search box type <code>VxRail </code> and find VxRail 4.5 and click <code>Connect</code></li>
-<li>Click <code>Start</code> click <code>Install VxRail</code>.</li>
-<li>Click <code>Get Started</code> then accept the EULA and click <code>Accept</code>.</li>
-<li>Click <code>Confirm</code> to accept the node configuration and click <code>Next</code>.</li>
-<li>Select the <code>JSON Configuration</code> then click the file and <code>Open</code> then <code>Next</code>.</li>
-<li>Click <code>Get Started</code> then accept the EULA and click <code>Accept</code>.</li>
-<li>Now you will see all the values populated for build.  Click <code>Next</code>.</li>
-<li>Scroll to the bottom of the page and view the configuration settings.  Click <code>Continue</code></li>
-<li>Configure the vMotion Network and click <code>Next</code>.</li>
-<li>Configure vSAN and click <code>Next</code>.</li>
-<li>Configure VM Networks and click <code>Next</code>.</li>
-<li>Configure Solutions for logging (in this installation we have used log insight) and click <code>Next</code>.</li>
-<li>Configure all of the login credentials and click <code>Next</code>.</li>
-<li>Validate that all of tasks have been completed and all checks are green and click <code>Validate</code>.</li>
-<li>Any errors would appear on this screen.  Now download the JSON file to review the config, then click <code>Build VxRail</code> then <code>Start Configuration</code>.</li>
-<li>After build completes your ready to log into the VxRail appliance</li>
-<li>Click <code>ESC</code> to return to the next demo.</li>
-</ol>
-<h2 id="update-vxrail">Update VxRail:</h2>
-<ol>
-    <li>Point your browser to <code>https://democenter.dell.com/</code></li>
-    <li>Create an Account and Login</li>
-    <li>In the search box type <code>VxRail </code> and find VxRail 4.5 and click <code>Connect</code></li>
-    <li>Click <code>Start</code> click <code>Install VxRail</code>.</li>
-    <li>Click <code>Get Started</code> then accept the EULA and click <code>Accept</code>.</li>
-    <li>Click <code>Confirm</code> to accept the node configuration and click <code>Next</code>.</li>
-    <li>Select the <code>JSON Configuration</code> then click the file and <code>Open</code> then <code>Next</code>.</li>
-    <li>Click <code>Get Started</code> then accept the EULA and click <code>Accept</code>.</li>
-    <li>Now you will see all the values populated for build.  Click <code>Next</code>.</li>
-    <li>Scroll to the bottom of the page and view the configuration settings.  Click <code>Continue</code></li>
-    <li>Configure the vMotion Network and click <code>Next</code>.</li>
-    <li>Configure vSAN and click <code>Next</code>.</li>
-    <li>Configure VM Networks and click <code>Next</code>.</li>
-    <li>Configure Solutions for logging (in this installation we have used log insight) and click <code>Next</code>.</li>
-    <li>Configure all of the login credentials and click <code>Next</code>.</li>
-    <li>Validate that all of tasks have been completed and all checks are green and click <code>Validate</code>.</li>
-    <li>Any errors would appear on this screen.  Now download the JSON file to review the config, then click <code>Build VxRail</code> then <code>Start Configuration</code>.</li>
-    <li>After build completes your ready to log into the VxRail appliance</li>
-    <li>Click <code>ESC</code> to return to the next demo.</li>
-    </ol>
-    
-<h2 id="scale-vxrail">Scale Out VxRail (Add a Node)</h2>
-<ol>
-    <li>Point your browser to <code>https://democenter.dell.com/</code></li>
-    <li>Create an Account and Login</li>
-    <li>In the search box type <code>VxRail </code> and find VxRail 4.5 and click <code>Connect</code></li>
-    <li>Click <code>Start</code> click <code>Install VxRail</code>.</li>
-    <li>Click <code>Get Started</code> then accept the EULA and click <code>Accept</code>.</li>
-    <li>Click <code>Confirm</code> to accept the node configuration and click <code>Next</code>.</li>
-    <li>Select the <code>JSON Configuration</code> then click the file and <code>Open</code> then <code>Next</code>.</li>
-    <li>Click <code>Get Started</code> then accept the EULA and click <code>Accept</code>.</li>
-    <li>Now you will see all the values populated for build.  Click <code>Next</code>.</li>
-    <li>Scroll to the bottom of the page and view the configuration settings.  Click <code>Continue</code></li>
-    <li>Configure the vMotion Network and click <code>Next</code>.</li>
-    <li>Configure vSAN and click <code>Next</code>.</li>
-    <li>Configure VM Networks and click <code>Next</code>.</li>
-    <li>Configure Solutions for logging (in this installation we have used log insight) and click <code>Next</code>.</li>
-    <li>Configure all of the login credentials and click <code>Next</code>.</li>
-    <li>Validate that all of tasks have been completed and all checks are green and click <code>Validate</code>.</li>
-    <li>Any errors would appear on this screen.  Now download the JSON file to review the config, then click <code>Build VxRail</code> then <code>Start Configuration</code>.</li>
-    <li>After build completes your ready to log into the VxRail appliance</li>
-    <li>Click <code>ESC</code> to return to the next demo.</li>
-    </ol>
-    
+ <br>
+<br>
+<iframe src="https://docs.google.com/document/d/e/2PACX-1vSTvviEyB472Cc116xoCm5oxFaUNY2KxDhNKzcQQH0NmyzVeez3ch9AYxPGiVLOZR5Mnmn7D_mFmaG_/pub?embedded=true" frameborder="0" width="100%" height="3000"></iframe>
          </article>
         <div class="sidebar-container">
 <nav id="sidebar">
@@ -215,28 +134,9 @@
         <a href="../../index.html">Return to Pivotal Container Service Workshop</a>
     </div>
     <div class="content">
-        <a href="demo.html#">Back to top</a>
+        <a href="#">Back to top</a>
 
 <ul>
-        <li>
-        <a href="demo.html#vxrail-overview">VxRail Overview</a>
-
-<ul>
-        <li>
-        <a href="demo.html#install-vxrail">Install VxRail</a>
-
-        </li>
-        <li>
-        <a href="demo.html#update-vxrail">Update VxRail</a>
-
-        </li>
-        <li>
-        <a href="demo.html#scale-vxrail">Scale Out VxRail</a>
-
-        </li>
-        
-</ul>
-        </li>
 </ul>
     </div>
 </nav>
@@ -260,5 +160,8 @@
 
 <script src="../../js/shipkin.js"></script>
 <script src="../../js/slides.js"></script>
+
+
+
 
 </body></html>

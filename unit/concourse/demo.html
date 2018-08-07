@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- saved from url=(0073)https://pks-workshop-v1.pal.pivotal.io/unit/pivotal-ops-manager/demo.html -->
+<!-- saved from url=(0068)https://pks-workshop-v1.pal.pivotal.io/unit/story-of-pks/slides.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="course version" content="1.0.6">
 <meta name="generator" content="io.pivotal.pal.shipkin:shipkin-plugin:5.0.0, https://github.com/platform-acceleration-lab/shipkin">
-<meta name="generated on" content="2018-03-13T16:17:21.299Z">
+<meta name="generated on" content="2018-03-13T16:17:21.288Z">
 <meta name="theme-color" content="#216eb9">
 
 
@@ -124,110 +124,9 @@
 
     <div id="content" class="container">
         <article>
- <h1 id="pivotal-ops-manager">Pivotal Ops Manager</h1>
-<h2 id="goal">Goal</h2>
-<p>Bring up the PCF Ops Manager VM within vCenter. This will be the operational console we will use to deploy PKS.</p>
-<h2 id="prerequisites">Prerequisites</h2>
-<ul>
-<li>VMware vCenter</li>
-<li>Ability to upload <code>*.OVA</code> template to vCenter</li>
-<li>IP to assign to the PCF Ops Manager with DNS hostname.
-<ul>
-<li>Gateway, DNS, and Netmask corresponding to this IP.</li>
-</ul>
-</li>
-<li>NTP Server</li>
-</ul>
-<h2 id="download-the-ova-template">Download the OVA Template:</h2>
-<ol>
-<li>Point your browser to <code>https://network.pivotal.io/</code></li>
-<li>Create an Account and Login</li>
-<li>Scroll down and under the <code>Pivotal Cloud Foundry</code> section click <code>Pivotal Cloud Foundry Operations Manager</code></li>
-<li>Under <code>Release Download Files</code> click on the one that reads <code>Pivotal Cloud Foundry Ops Manager for vSphere</code>.</li>
-<li>Accept the EULA</li>
-<li><strong>Ensure</strong> the release is <code>2.0</code> or higher!</li>
-</ol>
-<h2 id="upload-the-ova-template-to-vsphere">Upload the OVA Template to vSphere:</h2>
-<ol>
-<li>
-<p>Login into your vSphere Web Client</p>
-</li>
-<li>
-<p>Using the <code>hosts and clusters</code> view right click on your vCenter</p>
-</li>
-<li>
-<p>Click <code>Deploy OVF Template</code></p>
-</li>
-<li>
-<p>Click <code>Browse...</code> and navigate to where the <code>OVA</code> downloaded earlier is located</p>
-</li>
-<li>
-<p>Select a <code>Datacenter</code> where the VM will live</p>
-</li>
-<li>
-<p>Select a <code>cluster</code> where the VM will live</p>
-</li>
-<li>
-<p>Review the details and click <code>next</code></p>
-</li>
-<li>
-<p>Select a <code>datastore</code> where the VM will live</p>
-</li>
-<li>
-<p>Select a <code>network</code> where the VM will live</p>
-</li>
-<li>
-<p>Fill in the specific values for PCF Ops Manager as defined below and click <code>next</code> followed by <code>finish</code>!</p>
-<ul>
-<li><strong>Admin Password:</strong> This password is used to SSH into the Ops Manager VM we are deploying. The username is always <code>ubuntu</code></li>
-<li><strong>Custom Hostname:</strong> If you would like to set a custom hostname for the PCF Ops Manager do so here, this hostname should resolve to the PCF Ops Manager IP.</li>
-<li><strong>DNS:</strong> The DNS server that can resolve hostnames within your datacenter.</li>
-<li><strong>Default Gateway:</strong> When we are attempting to communicate with an IP that is out of our local subnet we will go to a router for directions. Put that router IP here.</li>
-<li><strong>IP Address:</strong> The IP address for the Ops Manager VM.</li>
-<li><strong>NTP Servers:</strong> A valid NTP server to keep time for the Ops Manager VM.</li>
-<li><strong>Netmask:</strong> The corresponding netmask for our subnet.</li>
-</ul>
-</li>
-<li>
-<p>Once fully uploaded to vSphere, power on the VM.</p>
-</li>
-</ol>
-<h2 id="configuring-pcf-ops-manager">Configuring PCF Ops Manager</h2>
-<ol>
-<li>
-<p>Navigate to <code>https://&lt;HOSTNAME-SPECIFIED-EARLIER&gt;</code>. If you do not have DNS setup to resolve the hostname to the Ops Manager VM given earlier when deploying the OVA, directly utilize the IP specified earlier, to access Ops Manager.</p>
-</li>
-<li>
-<p>You might need to accept the SSL cert if it is <code>self-signed</code>.</p>
-</li>
-<li>
-<p>Depending on your needs select the correct type of Authentication System, we will choose <code>Internal Authentication</code> for the remander of this guide. Under the covers PCF Ops Manager deploys <code>PCF UAA</code> which manages access to the <code>PCF</code> ecosystem. The type of authentication system you choose defines how <code>UAA</code> will retrieve and store users that can access the PCF Ops Manager.</p>
-<p>More info below:</p>
-<ul>
-<li>
-<p><strong>Use an Identity Provider:</strong> Links together PCF Ops Manager with an external Identity Provider which maintains the user database to access the PCF Ops Manager. SAML is an example of an IdP type, and Okta is an example of a IdP itself.</p>
-</li>
-<li>
-<p><strong>Internal Authentication:</strong> PCF UAA will create and maintain a new user database for use with PCF Ops Manager.</p>
-</li>
-</ul>
-</li>
-<li>
-<p>Set <code>username</code> and <code>password</code>. These will be used to login to the PCF Ops Manager <strong>GUI</strong>.</p>
-<ul>
-<li><em>Remember <code>ssh</code> credentials were specified earlier!</em></li>
-</ul>
-</li>
-<li>
-<p>Set the <code>Decryption passphrase</code>. This is used to encrypt the database backing our authentication service <code>PCF UAA</code>.</p>
-</li>
-<li>
-<p>Set <code>Http Proxy</code>, <code>Https Proxy</code>, and <code>No proxy</code> depending on <em>if</em> you need to use a proxy to access the internet from your datacenter.</p>
-</li>
-<li>
-<p>Agree to the terms and click <code>finish</code>!</p>
-</li>
-</ol>
+ <br>
+<br>
+<iframe src="https://docs.google.com/document/d/e/2PACX-1vQfKvHr6IZRoL9FmLpIZ85SkrMg-kV_RXuE4tlFfh2WoEt9lHZxP-TCi-ZZpah3VhD76gPoETp-jJ_N/pub?embedded=true" frameborder="0" width="100%" height="3000"></iframe>
          </article>
         <div class="sidebar-container">
 <nav id="sidebar">
@@ -235,35 +134,9 @@
         <a href="../../index.html">Return to Pivotal Container Service Workshop</a>
     </div>
     <div class="content">
-        <a href="demo.html#">Back to top</a>
+        <a href="#">Back to top</a>
 
 <ul>
-        <li>
-        <a href="demo.html#pivotal-ops-manager">Pivotal Ops Manager</a>
-
-<ul>
-        <li>
-        <a href="demo.html#goal">Goal</a>
-
-        </li>
-        <li>
-        <a href="demo.html#prerequisites">Prerequisites</a>
-
-        </li>
-        <li>
-        <a href="demo.html#download-the-ova-template">Download the OVA Template:</a>
-
-        </li>
-        <li>
-        <a href="demo.html#upload-the-ova-template-to-vsphere">Upload the OVA Template to vSphere:</a>
-
-        </li>
-        <li>
-        <a href="demo.html#configuring-pcf-ops-manager">Configuring PCF Ops Manager</a>
-
-        </li>
-</ul>
-        </li>
 </ul>
     </div>
 </nav>
@@ -287,5 +160,8 @@
 
 <script src="../../js/shipkin.js"></script>
 <script src="../../js/slides.js"></script>
+
+
+
 
 </body></html>

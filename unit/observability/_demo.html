@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- saved from url=(0068)https://pks-workshop-v1.pal.pivotal.io/unit/story-of-pks/slides.html -->
+<!-- saved from url=(0073)https://pks-workshop-v1.pal.pivotal.io/unit/pivotal-ops-manager/demo.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="course version" content="1.0.6">
 <meta name="generator" content="io.pivotal.pal.shipkin:shipkin-plugin:5.0.0, https://github.com/platform-acceleration-lab/shipkin">
-<meta name="generated on" content="2018-03-13T16:17:21.288Z">
+<meta name="generated on" content="2018-03-13T16:17:21.299Z">
 <meta name="theme-color" content="#216eb9">
 
 
@@ -124,9 +124,46 @@
 
     <div id="content" class="container">
         <article>
- <br>
-<br>
-<iframe src="https://docs.google.com/document/d/e/2PACX-1vSilubc-bZ13_MrA25mM7F25I2S46KB5ONkgDRSHnVxujU8MZOckfyOrwk81v0ZRcU0JYmTxWPlaGhf/pub?embedded=true" frameborder="0" width="100%" height="3000"></iframe>
+            <h1 id="observability">Obserability and Analytics</h1>
+
+            <h2 id="goal">Goal</h2>
+
+            <p>Use tools to observer, alert and respond to cluster/workload problems.</p>
+
+            <h2 id="prerequisites">Prerequisites</h2>
+
+            <ul>
+                <li>PKS installed and configured with NSX-T and Harbor.</li>
+                <li>A PKS cluster deployed of any size.</li>
+                <li>Access to the cluster and PKS CLI.</li>
+                <li>Docker CLI installed.</li>
+            </ul>
+
+            <h2 id="log-in-to-pks">Log into PKS CLI and access the cluster:</h2>
+
+            <ol>
+                <li>From the PKS CLI, execute: <code>pks login -a PKS_API -u USERNAME -p PASSWORD -k</code></li>
+                    <ul>
+                        <li><strong>PKS_API</strong> is the domain name you entered in Ops Manager > Pivotal Container Service > UAA > UAA URL. For example, api.pks.example.com.</li>
+                        <li><strong>USERNAME</strong> and <strong>PASSWORD</strong> were configured when you configured UAA.</li>
+                    </ul>
+                <li>To get the cluster credentials execute: <code>pks get-credentials CLUSTER-NAME</code></li>
+                    <ul>
+                        <li><strong>CLUSTER-NAME</strong> is the name of the Kubernetes cluster you deployed in the previous lab.</li>
+                    </ul>
+                <li>From the kubectl CLI execute: <code>kubectl get nodes</code> to verify that you have access to the cluster.</li>
+            </ol>
+
+            <h2 id="wavefront">Wavefront</h2>
+            <ol>
+                <li>tbd
+            </ol>
+
+            <h2 id="loginsight">LogInsight</h2>
+            <ol>
+                <li>tbd
+            </ol>
+
          </article>
         <div class="sidebar-container">
 <nav id="sidebar">
@@ -134,9 +171,35 @@
         <a href="../../index.html">Return to Pivotal Container Service Workshop</a>
     </div>
     <div class="content">
-        <a href="#">Back to top</a>
+        <a href="demo.html#">Back to top</a>
 
 <ul>
+        <li>
+        <a href="demo.html#pivotal-ops-manager">Pivotal Ops Manager</a>
+
+<ul>
+        <li>
+        <a href="demo.html#goal">Goal</a>
+
+        </li>
+        <li>
+        <a href="demo.html#prerequisites">Prerequisites</a>
+
+        </li>
+        <li>
+        <a href="demo.html#download-the-ova-template">Download the OVA Template:</a>
+
+        </li>
+        <li>
+        <a href="demo.html#upload-the-ova-template-to-vsphere">Upload the OVA Template to vSphere:</a>
+
+        </li>
+        <li>
+        <a href="demo.html#configuring-pcf-ops-manager">Configuring PCF Ops Manager</a>
+
+        </li>
+</ul>
+        </li>
 </ul>
     </div>
 </nav>
@@ -160,8 +223,5 @@
 
 <script src="../../js/shipkin.js"></script>
 <script src="../../js/slides.js"></script>
-
-
-
 
 </body></html>

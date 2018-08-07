@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)https://pks-workshop-v1.pal.pivotal.io/unit/pivotal-ops-manager/demo.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="course version" content="1.0.6">
+<meta name="generator" content="io.pivotal.pal.shipkin:shipkin-plugin:5.0.0, https://github.com/platform-acceleration-lab/shipkin">
+<meta name="generated on" content="2018-03-13T16:17:21.299Z">
+<meta name="theme-color" content="#216eb9">
+
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Pivotal Container Service Workshop</title>
+
+<link rel="icon" href="../../img/favicon.ico">
+
+<link rel="stylesheet" href="../../css/reset.css">
+<link rel="stylesheet" href="../../css/theme.css">
+<link rel="stylesheet" href="../../css/highlight.js.min.css">
+<link rel="stylesheet" href="../../css/github.css">
+
+<style>
+    @import url(''https://fonts.googleapis.com/css?family=Raleway:500,500i,700,700i'');
+
+    #header {
+        border-color: #216eb9;
+        background-color: #216eb9;
+    }
+
+    footer {
+        background-color: #216eb9;
+    }
+
+    .label.label-primary {
+        background-color: #216eb9;
+    }
+
+    a {
+        color: #216eb9;
+    }
+
+    .label.label-primary:hover, .label.label-primary:focus {
+        background-color: #307dc8;
+    }
+
+    a:hover, a:focus {
+        color: #307dc8;
+    }
+
+    .slide {
+        color: #216eb9;
+    }
+
+    .slide h2, .slide label {
+        color: #216eb9;
+    }
+
+    .slide input {
+        color: rgba(33, 110, 185, 0.65);
+    }
+
+    .face path {
+        fill: #216eb9;
+    }
+
+    body {
+        background-color: #FFFFFF;
+    }
+
+    .slide {
+        background-color: rgba(255, 255, 255, 0.9);
+    }
+
+    .slide.text {
+        background-color: #FFFFFF;
+    }
+
+    .slide h2, .slide label {
+        color: inherit;
+    }
+
+
+    html, body {
+        font-family: 'Raleway', sans-serif;
+    }
+
+    .slide:before {
+        background-image: url(../../images/p.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        content: "";
+
+        height: 120px;
+        width: 115px;
+        position: fixed;
+        top: 20px;
+        left: 20px;
+    }
+</style>
+
+    <link rel="stylesheet" href="../../css/custom.css">
+</head>
+<body>
+
+
+<style>
+    header {
+        border-bottom: #216eb9 18px solid;
+    }
+</style>
+
+<header>
+    <img src="../../img/pks-workshop.svg" alt="Pivotal Container Service Workshop">
+</header>
+
+<a class="feedback" href="https://goo.gl/forms/HC2WwNAx5pFPeCvD2" data-url-field="entry.31443528" target="_blank" rel="noreferrer noopener">
+    <button>
+        feedback
+    </button>
+</a>
+
+<main id="main">
+
+    <div id="content" class="container">
+        <article>
+ 
+            <h1 id="managing-containers">Managing Contaianers</h1>
+
+            <h2 id="goal">Goals</h2>
+
+            <p>Download kubectl from PivNet. Push a container from DockerHub to a PKS cluster. Push a container from Harbor. Create new K8s namespaces and loadbalancers.</p>
+
+            <h2 id="prerequisites">Prerequisites</h2>
+
+            <ul>
+                <li>PKS installed and configured with NSX-T and Harbor.</li>
+                <li>A PKS cluster deployed of any size.</li>
+                <li>Access to the cluster and PKS CLI.</li>
+                <li>Docker CLI installed.</li>
+            </ul>
+
+            <h2 id="log-in-to-pks">Log into PKS CLI and access the cluster:</h2>
+
+            <ol>
+                <li>From the PKS CLI, execute: <code>pks login -a PKS_API -u USERNAME -p PASSWORD -k</code></li>
+                    <ul>
+                        <li><strong>PKS_API</strong> is the domain name you entered in Ops Manager > Pivotal Container Service > UAA > UAA URL. For example, api.pks.example.com.</li>
+                        <li><strong>USERNAME</strong> and <strong>PASSWORD</strong> were configured when you configured UAA.</li>
+                    </ul>
+                <li>To get the cluster credentials execute: <code>pks get-credentials CLUSTER-NAME</code></li>
+                    <ul>
+                        <li><strong>CLUSTER-NAME</strong> is the name of the Kubernetes cluster you deployed in the previous lab.</li>
+                    </ul>
+                <li>From the kubectl CLI execute: <code>kubectl get nodes</code> to verify that you have access to the cluster.</li>
+            </ol>
+
+            <h2 id="deploy-container">Deploy a container image from DockerHub:</h2>
+            <ol>
+                <li>Create the following yml file:</li>
+                <pre>apiVersion: apps/v1
+                    kind: Deployment
+                    metadata:
+                    name: nginx-deployment
+                    labels:
+                        app: nginx
+                    spec:
+                    replicas: 3
+                    selector:
+                        matchLabels:
+                        app: nginx
+                    template:
+                        metadata:
+                        labels:
+                            app: nginx
+                        spec:
+                        containers:
+                        - name: nginx
+                            image: nginx:1.7.9
+                            ports:
+                            - containerPort: 80</pre>
+                <li>Save as nginx-deployment.yml</li>
+                <li>From kubectl CLI execute: <code>kubectl create -f nginx-deployment.yml</code></li>
+            </ol>
+
+            <h2 id="harbor">Deploy and manage container images with harbor.</h2>
+            <ol>
+                <li>Download java app from tbd.</li>
+                <li>Create the following dockerfile:</li>
+                <pre>FROM java:7
+                    COPY . /usr/src/myapp
+                    WORKDIR /usr/src/myapp
+                    RUN javac Main.java
+                    CMD ["java", "Main"]</pre>
+                <li>Save as dockerfile</li>
+                <li>Build the image by executing: <code>docker build dockerfile</code></li>
+                <li>Tag the image by executing: <code>docker tag java:7 workshop:java</code></li>
+                <li>Log into Harbor: <code>docker login HARBOR_URL</code></li>
+                    <ul>
+                        <li><strong>HARBOR_URL</strong> is the URL or IP address of your harbor instance.</li>
+                    </ul>
+                <li>Push the image to harbor by executing: <code>docker push workshop:java</code></li>
+                <li>Log into the Harbor user interface by going to https://HARBOR_URL</li>
+                    <ul>
+                        <li><strong>HARBOR_URL</strong> is the URL or IP address of your harbor instance.</li>
+                    </ul>
+                <li>Walk thru Harbor scans. TBD</li>
+            </ol>
+
+            <h2 id="sign-container">Sign a container image with Harbor</h2>
+            <ol>
+                <li>tbd
+            </ol>
+
+            <h2 id="k8s-namespace">Create a new Kubernetes namespace</h2>
+            <ol>
+                <li>tbd
+            </ol>
+
+            <h2 id="microsegmentation">Container Microsegmentation</h2>
+            <ol>
+                <li>tbd
+            </ol>
+
+            <h2 id="load-balancer">Create a servivce with a load balancer.</h2>
+            <ol>
+                <li>tbd
+            </ol>
+
+         </article>
+        <div class="sidebar-container">
+<nav id="sidebar">
+    <div class="title">
+        <a href="../../index.html">Return to Pivotal Container Service Workshop</a>
+    </div>
+    <div class="content">
+        <a href="demo.html#">Back to top</a>
+
+<ul>
+        <li>
+        <a href="demo.html#pivotal-ops-manager">Pivotal Ops Manager</a>
+
+<ul>
+        <li>
+        <a href="demo.html#goal">Goal</a>
+
+        </li>
+        <li>
+        <a href="demo.html#prerequisites">Prerequisites</a>
+
+        </li>
+        <li>
+        <a href="demo.html#download-the-ova-template">Download the OVA Template:</a>
+
+        </li>
+        <li>
+        <a href="demo.html#upload-the-ova-template-to-vsphere">Upload the OVA Template to vSphere:</a>
+
+        </li>
+        <li>
+        <a href="demo.html#configuring-pcf-ops-manager">Configuring PCF Ops Manager</a>
+
+        </li>
+</ul>
+        </li>
+</ul>
+    </div>
+</nav>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <a href="https://pivotal.io/legal" rel="noreferrer noopener">CONFIDENTIAL -
+        © Copyright 2018 Pivotal Software, Inc. All Rights Reserved.</a>
+    <div>
+        <label class="hidden-checkbox">
+            <input type="checkbox" id="instructor-mode">
+            <span>course version: 1.0.6<sup class="check">IM</sup></span>
+        </label>
+    </div>
+</footer>
+
+<script src="../../js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script src="../../js/shipkin.js"></script>
+<script src="../../js/slides.js"></script>
+
+</body></html>

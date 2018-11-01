@@ -1,13 +1,47 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: redis-allow-services
+  name: guestbook-allow-external-access
+spec:
+  podSelector:
+    matchLabels:
+      app: guestbook
+  ingress:
+  - from: []
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: redis-master-allow-from-guestbook
 spec:
   podSelector:
     matchLabels:
       app: redis
+      role: master
   ingress:
     - from:
       - podSelector:
           matchLabels:
             app: guestbook
+    - ports:
+      - protocol: TCP
+        port: 6379
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: redis-slave-allow-from-redis-master
+spec:
+  podSelector:
+    matchLabels:
+      app: redis
+      role: slave
+  ingress:
+    - from:
+      - podSelector:
+          matchLabels:
+            app: redis
+            role: master
+    - ports:
+      - protocol: TCP
+        port: 6379

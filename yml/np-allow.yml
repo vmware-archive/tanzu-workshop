@@ -1,14 +1,13 @@
-kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
 metadata:
-  name: api-allow
+  name: redis-allow-services
 spec:
   podSelector:
     matchLabels:
-      app: guestbook
-#      role: frontend 
+      app: redis
   ingress:
-  - from:
+    - from:
       - podSelector:
           matchLabels:
-            app: redis
+            app: guestbook
